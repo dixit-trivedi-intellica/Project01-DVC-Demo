@@ -12,8 +12,9 @@ setup(
     author_email="dixit@gmail.com",
     long_description_content_type="text/markdown",
     url="https://github.com/dixit-trivedi-intellica/Project01-DVC-Demo",
-    package_dir={"":"src"},
-    packages=find_packages(where="src"),
+    # package_dir={"":"src"},
+    # packages=find_packages(where="src"),
+    packages = ["src"],
     license="MIT",
     python_requires=">=3.6",
     install_requires=[
