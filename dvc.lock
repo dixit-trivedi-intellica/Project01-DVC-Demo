@@ -4,8 +4,8 @@ stages:
     cmd: python src/stage_01_load_and_save.py --config=params.yaml
     deps:
     - path: src/stage_01_load_and_save.py
-      md5: 92a33f16f8939d11ba3f016859de0a6f
-      size: 974
+      md5: c8878802763812865d768e5f3239150c
+      size: 1138
     params:
       params.yaml:
         artifacts.raw_local_data: artifacts/raw_local_data_dir/data.csv
