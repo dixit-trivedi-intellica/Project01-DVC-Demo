@@ -4,6 +4,9 @@ import argparse
 from src.utils.common_utils import read_params, clean_prev_dirs_if_exists, create_dir, save_local_df
 import logging
 import requests
+from loguru import logger
+
+logger.add("artifacts/logs/out.log", format="{time} {level} {message}")
 
 def get_data(config_path):
     config = read_params(config_path)
@@ -21,6 +24,7 @@ def get_data(config_path):
     df = pd.read_csv(data_path, sep=",")
     
     save_local_df(df, raw_local_data)
+    logger.info("Successfully saved dataframe in the give path")
 
 
 if __name__ == '__main__':
