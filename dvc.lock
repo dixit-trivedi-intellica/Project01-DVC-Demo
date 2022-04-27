@@ -4,7 +4,7 @@ stages:
     cmd: python src/stage_01_load_and_save.py --config=params.yaml
     deps:
     - path: src/stage_01_load_and_save.py
-      md5: ce95bfbaff143123f89fbb2efeb6ac4e
+      md5: 92a33f16f8939d11ba3f016859de0a6f
       size: 974
     params:
       params.yaml:
@@ -12,14 +12,14 @@ stages:
         data_source.drive_source: /home/dixittrivedi/Downloads/winequality-red.csv
     outs:
     - path: artifacts/raw_local_data_dir/data.csv
-      md5: f9c1166893d2d57fd0b3b7cb7ad69d70
-      size: 104151
+      md5: 65370e7b05a9d76a5ade687fb3fcee49
+      size: 95022
   split_data:
     cmd: python src/stage_02_split_data.py --config=params.yaml
     deps:
     - path: artifacts/raw_local_data_dir/data.csv
-      md5: f9c1166893d2d57fd0b3b7cb7ad69d70
-      size: 104151
+      md5: 65370e7b05a9d76a5ade687fb3fcee49
+      size: 95022
     - path: src/stage_02_split_data.py
       md5: f7d9f429bff29f5ce32b4e6eeb9f0b4e
       size: 1271
@@ -33,8 +33,31 @@ stages:
         base.test_size: 0.2
     outs:
     - path: artifacts/processed_data/test.csv
-      md5: c7ecb05158db7b60ed3915a2fba4e96d
-      size: 21058
+      md5: 386e9bc50fa88d9e9c755f83cb373868
+      size: 20416
     - path: artifacts/processed_data/train.csv
-      md5: d361c3ffce3471d9e4f281fda8a6c455
-      size: 83241
+      md5: b28b71e9a6fd7ba4539ac9f2cb337327
+      size: 80681
+  train:
+    cmd: python src/stage_03_train.py --config=params.yaml
+    deps:
+    - path: artifacts/processed_data/train.csv
+      md5: b28b71e9a6fd7ba4539ac9f2cb337327
+      size: 80681
+    - path: src/stage_03_train.py
+      md5: 6f6ca6d934b001d179b4acd4098a1b53
+      size: 1675
+    params:
+      params.yaml:
+        artifacts.split_data.processed_data_dir: artifacts/processed_data
+        artifacts.split_data.train_path: artifacts/processed_data/train.csv
+        base.random_state: 42
+        estimators.ElasticNet.params.alpha: 0.9
+        estimators.ElasticNet.params.l1_ratio: 0.4
+    outs:
+    - path: artifacts/report/params.json
+      md5: a4aab0167612f21a6085dd05cfafdbf6
+      size: 41
+    - path: artifacts/saved_models/model.joblib
+      md5: 2211c63f6daa39706b1fac598ec133b9
+      size: 1316

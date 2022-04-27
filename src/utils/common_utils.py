@@ -22,4 +22,8 @@ def save_local_df(df, df_path, header=False):
         new_cols = [col.replace(" ", "_") for col in df.columns]
         df.to_csv(df_path, index=False, header=new_cols)
     else:
-         df.to_csv(df_path, index=False)    
+         df.to_csv(df_path, index=False)  
+         
+def save_reports(filepath: str, report: dict):
+    with open(filepath, "w") as f:
+        json.dump(report, f, indent=4)  
